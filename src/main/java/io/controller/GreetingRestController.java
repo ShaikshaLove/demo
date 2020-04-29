@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.dto.Response;
 import io.model.Greeting;
 import io.service.GreetingService;
 
@@ -37,20 +38,19 @@ public class GreetingRestController {
 	}
 	
 	@DeleteMapping("/{greetingId}")
-	public String delete(@PathVariable Integer greetingId) {
+	public Response delete(@PathVariable Integer greetingId) {
 		greetingService.delete(greetingId);
-		return "The message has been deleted";
+		return new Response("The message has been deleted");
 	}
 	
 	@PutMapping("/{greetingId}")
-	public String update(@RequestBody Greeting greeting,@PathVariable Integer greetingId) {
+	public Response update(@RequestBody Greeting greeting,@PathVariable Integer greetingId) {
 		greetingService.update(greetingId, greeting);
-		return "The message has been Updated";
+		return new Response("The message has been Updated");
 	}
 	
 	@GetMapping("/{greetingId}")
 	public Greeting one(@PathVariable Integer greetingId) {
 		return greetingService.one(greetingId);
 	}
-
 }
